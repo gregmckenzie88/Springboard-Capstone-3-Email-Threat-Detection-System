@@ -59,3 +59,27 @@ Here is an example of one of these images:
 I then used OpenCV to trim the axis and enforce dimensions on each image so that each one looked like this:
 
 ![Processed image](docs/reference-images/processed.png)
+
+## EDA
+
+We have 136 unique images, which are distributed like this.
+
+![Status Distribution](docs/reference-images/status-distribution.png)
+
+Because the 'benign' class is slightly underrepresented, I upsampled it to get an even 50/50 distribution of each class.
+
+Here, I've plotted a histogram for each pixel value, corresponding to the red, green, and blue color channels, for a randomly selected 'benign' sample.
+
+![Status Distribution](docs/reference-images/rgb-hist-random-benign.png)
+
+Note the somewhat 'normal' distribution that is not present in that of a randomly-selected 'malicious' sample.
+
+![Status Distribution](docs/reference-images/rgb-hist-random-malicious.png)
+
+Here is the same analysis relative to the average of all samples:
+
+![Status Distribution](docs/reference-images/rgb-hist-averages.png)
+
+At a glance, you can see the malicious samples have a slightly different pattern than the benign ones.
+
+![Status Distribution](docs/reference-images/sample-grid.png)
