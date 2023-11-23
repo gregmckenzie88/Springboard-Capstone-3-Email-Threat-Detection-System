@@ -108,7 +108,7 @@ Non-trainable params: 5432713 (20.72 MB)
 
 I then created a custom convolutional neural network, which at best, generated the following scores:
 
-![Status Distribution](docs/reference-images/cnn-scores.png)
+![CNN Scores](docs/reference-images/cnn-scores.png)
 
 Here is the summary of this model:
 
@@ -130,12 +130,38 @@ Non-trainable params: 0 (0.00 Byte)
 
 ---
 
+I created a third model, which is similar to the CNN, but leverages Exponential Decay to taper off the learning rate as the accuracy of the model increases, which returned the following scores:
+
+![CNN Scores](docs/reference-images/cnn-ed-scores.png)
+
+Here is the summary for this model:
+
+Model: "CNN_ED_nearest_600"
+| Layer (type) | Output Shape | Param # |
+|---------------------------|------------------------|-----------|
+| conv2d_4 (Conv2D) | (None, 222, 222, 32) | 896 |
+| max_pooling2d_4 (MaxPooling2D) | (None, 111, 111, 32) | 0 |
+| conv2d_5 (Conv2D) | (None, 109, 109, 64) | 18,496 |
+| max_pooling2d_5 (MaxPooling2D) | (None, 54, 54, 64) | 0 |
+| flatten_2 (Flatten) | (None, 186624) | 0 |
+| dense_6 (Dense) | (None, 128) | 23,888,000|
+| dropout_2 (Dropout) | (None, 128) | 0 |
+| dense_7 (Dense) | (None, 2) | 258 |
+
+Total params: 23907650 (91.20 MB)
+Trainable params: 23907650 (91.20 MB)
+Non-trainable params: 0 (0.00 Byte)
+
+---
+
 Additionally, I calculated the latency for each model to return predictions for each entry in the validation.
 
 The Wall Time results were:
 
+1.33 s for MobileNet-V2_nearest_600
+
 452 ms for CNN_nearest_600
 
-1.33 s for MobileNet-V2_nearest_600
+438 ms for CNN_ED_nearest_600
 
 Despite the advantage in this respect for CNN_nearest_600, at this stage in the project, I do not believe it is worth trading off the perfect scores from MobileNet-V2_nearest_600. However, if this model goes to production, and latency becomes a serious issue, this decision can be revisited.
