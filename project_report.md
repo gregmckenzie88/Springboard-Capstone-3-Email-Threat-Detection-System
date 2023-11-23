@@ -83,3 +83,59 @@ Here is the same analysis relative to the average of all samples:
 At a glance, you can see the malicious samples have a slightly different pattern than the benign ones.
 
 ![Status Distribution](docs/reference-images/sample-grid.png)
+
+## Modelling
+
+As a baseline model, I chose to leverage transfer learning by using the [MobileNet-V2](https://www.kaggle.com/models/google/mobilenet-v2/frameworks/tensorFlow2/variations/130-224-classification/versions/1?tfhub-redirect=true) layer, which was developed by Google, and was trained on over 1 million images.
+
+After experimenting with various workspace parameters such as distance measurement (nearest, or lanczos) and dots-per-inch (120, 300, 600, 1200), I was able to achieve perfect scores using the 'nearest' measurement with 600 DPI
+
+![Status Distribution](docs/reference-images/mobile-net-v2-scores.png)
+
+Here is the summary of this model:
+
+Model: "MobileNet-V2_nearest_600"
+| Layer (type) | Output Shape | Param # |
+|------------------------|--------------|-----------|
+| keras_layer_1 (KerasLayer) | (None, 1001) | 5,432,713 |
+| dense_1 (Dense) | (None, 2) | 2,004 |
+
+Total params: 5434717 (20.73 MB)
+Trainable params: 2004 (7.83 KB)
+Non-trainable params: 5432713 (20.72 MB)
+
+---
+
+I then created a custom convolutional neural network, which at best, generated the following scores:
+
+![Status Distribution](docs/reference-images/cnn-scores.png)
+
+Here is the summary of this model:
+
+Model: "CNN_nearest_600"
+| Layer (type) | Output Shape | Param # |
+|-------------------------|---------------------|---------|
+| conv2d (Conv2D) | (None, 222, 222, 32)| 896 |
+| max_pooling2d (MaxPooling2D) | (None, 111, 111, 32) | 0 |
+| conv2d_1 (Conv2D) | (None, 109, 109, 64)| 18,496 |
+| max_pooling2d_1 (MaxPooling2D) | (None, 54, 54, 64) | 0 |
+| flatten (Flatten) | (None, 186624) | 0 |
+| dense_2 (Dense) | (None, 128) | 23,888,000 |
+| dropout (Dropout) | (None, 128) | 0 |
+| dense_3 (Dense) | (None, 2) | 258 |
+
+Total params: 23907650 (91.20 MB)
+Trainable params: 23907650 (91.20 MB)
+Non-trainable params: 0 (0.00 Byte)
+
+---
+
+Additionally, I calculated the latency for each model to return predictions for each entry in the validation.
+
+The Wall Time results were:
+
+452 ms for CNN_nearest_600
+
+1.33 s for MobileNet-V2_nearest_600
+
+Despite the advantage in this respect for CNN_nearest_600, at this stage in the project, I do not believe it is worth trading off the perfect scores from MobileNet-V2_nearest_600. However, if this model goes to production, and latency becomes a serious issue, this decision can be revisited.
