@@ -177,6 +177,6 @@ Using this model, I made classifications against peer-to-peer file sharing softw
 - `Limewire_5.5.16` [Limewire](https://en.wikipedia.org/wiki/LimeWire)
 - `napster2b103` [Napster](https://en.wikipedia.org/wiki/Napster)
 
-![Status Distribution](docs/reference-images/cnn-scores.png)
+![Status Distribution](docs/reference-images/predictions.png)
 
 Although we have no high-confidence malicious classifications, it does appear Soulseek is at risk.
