@@ -86,6 +86,8 @@ At a glance, you can see the malicious samples have a slightly different pattern
 
 ## Modelling
 
+### Model 1: MobileNet-V2
+
 As a baseline model, I chose to leverage transfer learning by using the [MobileNet-V2](https://www.kaggle.com/models/google/mobilenet-v2/frameworks/tensorFlow2/variations/130-224-classification/versions/1?tfhub-redirect=true) layer, which was developed by Google, and was trained on over 1 million images.
 
 After experimenting with various workspace parameters such as distance measurement (nearest, or lanczos) and dots-per-inch (120, 300, 600, 1200), I was able to achieve perfect scores using the 'nearest' measurement with 600 DPI
@@ -105,6 +107,8 @@ Trainable params: 2004 (7.83 KB)
 Non-trainable params: 5432713 (20.72 MB)
 
 ---
+
+### Model 2: Convolutional Neural Network
 
 I then created a custom convolutional neural network, which at best, generated the following scores:
 
@@ -129,6 +133,8 @@ Trainable params: 23907650 (91.20 MB)
 Non-trainable params: 0 (0.00 Byte)
 
 ---
+
+### Model 2: Convolutional Neural Network with Exponential Decay
 
 I created a third model, which is similar to the CNN, but leverages Exponential Decay to taper off the learning rate as the accuracy of the model increases, which returned the following scores:
 
@@ -158,11 +164,11 @@ Additionally, I calculated the latency for each model to return predictions for 
 
 The Wall Time results were:
 
-1.33 s for MobileNet-V2_nearest_600
+- 1.33 s for `MobileNet-V2_nearest_600`
 
-452 ms for CNN_nearest_600
+- 452 ms for `CNN_nearest_600`
 
-438 ms for CNN_ED_nearest_600
+- 438 ms for `CNN_ED_nearest_600`
 
 Despite the advantage in this respect for CNN_nearest_600, at this stage in the project, I do not believe it is worth trading off the perfect scores from MobileNet-V2_nearest_600. However, if this model goes to production, and latency becomes a serious issue, this decision can be revisited.
 
