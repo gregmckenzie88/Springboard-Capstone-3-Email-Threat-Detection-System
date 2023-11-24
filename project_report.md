@@ -134,7 +134,7 @@ Non-trainable params: 0 (0.00 Byte)
 
 ---
 
-### Model 2: Convolutional Neural Network with Exponential Decay
+### Model 3: Convolutional Neural Network with Exponential Decay
 
 I created a third model, which is similar to the CNN, but leverages Exponential Decay to taper off the learning rate as the accuracy of the model increases, which returned the following scores:
 
