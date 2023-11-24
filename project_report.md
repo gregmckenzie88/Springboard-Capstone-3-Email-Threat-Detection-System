@@ -180,3 +180,21 @@ Using this model, I made classifications against peer-to-peer file sharing softw
 ![Status Distribution](docs/reference-images/predictions.png)
 
 Although we have no high-confidence malicious classifications, it does appear Soulseek is at risk.
+
+## Future Improvements
+
+- As the entire training set consisted of only 136 samples, wrangling a higher quantity and quality of samples would help this model improve
+
+- Building and deploying an API that can accept a .exe file in a post request, and return a JSON payload with the following schema would be the first step towards making this a production-grade feature.
+
+```json
+{
+  "file_name": "klitekpp243e-32-bit",
+  "confidence": 0.7,
+  "classification": "benign"
+}
+```
+
+## Acknowledgements
+
+I would like to give a very special thanks to the Springboard Data Science Career Track program, including my incredible mentor Malik, Michelle Jorgensen, and Vinju Vipin.
