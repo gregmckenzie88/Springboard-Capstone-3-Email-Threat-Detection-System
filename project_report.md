@@ -165,3 +165,18 @@ The Wall Time results were:
 438 ms for CNN_ED_nearest_600
 
 Despite the advantage in this respect for CNN_nearest_600, at this stage in the project, I do not believe it is worth trading off the perfect scores from MobileNet-V2_nearest_600. However, if this model goes to production, and latency becomes a serious issue, this decision can be revisited.
+
+## Predictions
+
+Using this model, I made classifications against peer-to-peer file sharing software from the early 2000s
+
+- `1.56c_slsk156c` [Soulseek](https://en.wikipedia.org/wiki/Soulseek)
+- `5.8.3.0_morpheus_pro` [Morpheus](<https://en.wikipedia.org/wiki/Morpheus_(software)>)
+- `icqpro2003b` [ICQ](https://en.wikipedia.org/wiki/ICQ)
+- `klitekpp243e-32-bit` [Kazaa](https://en.wikipedia.org/wiki/Kazaa)
+- `Limewire_5.5.16` [Limewire](https://en.wikipedia.org/wiki/LimeWire)
+- `napster2b103` [Napster](https://en.wikipedia.org/wiki/Napster)
+
+![Status Distribution](docs/reference-images/cnn-scores.png)
+
+Although we have no high-confidence malicious classifications, it does appear Soulseek is at risk.
